@@ -35,6 +35,7 @@ const LANGUAGES = [
 
 export default function ChatPage() {
   const [lang, setLang] = useState('en');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
@@ -255,8 +256,16 @@ export default function ChatPage() {
 
   return (
     <div className={styles.layout}>
+      {/* Sidebar Backdrop for Mobile */}
+      {isSidebarOpen && (
+        <div
+          className={styles.sidebarBackdrop}
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
           <Link href="/" className={styles.sidebarLogo}>
             <span>🧞</span>
@@ -265,7 +274,16 @@ export default function ChatPage() {
               <span className="gold-text">Genie</span>
             </span>
           </Link>
-          <span className="badge badge-green">● Live</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="badge badge-green">● Live</span>
+            <button
+              className={styles.closeSidebarBtn}
+              onClick={() => setIsSidebarOpen(false)}
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* Language Selector in Sidebar */}
@@ -301,7 +319,10 @@ export default function ChatPage() {
               <button
                 key={p.text}
                 className={styles.quickPromptBtn}
-                onClick={() => sendMessage(p.text)}
+                onClick={() => {
+                  sendMessage(p.text);
+                  setIsSidebarOpen(false); // Proactively close sidebar on mobile quick start
+                }}
                 disabled={isLoading}
                 id={`quick-prompt-${p.text.slice(0, 20).replace(/\s/g, '-').toLowerCase()}`}
               >
@@ -338,6 +359,7 @@ export default function ChatPage() {
               className={styles.menuBtn}
               aria-label="Toggle menu"
               id="sidebar-toggle"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
               ☰
             </button>
