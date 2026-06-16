@@ -111,18 +111,20 @@
 }
 
 .timelineDot {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--bg-card);
   border: 2px solid var(--border-card);
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 4px;
   z-index: 1;
+  transition: all 0.3s ease;
 }
 
 .active .timelineDot {
   border-width: 0;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .timelineContent {

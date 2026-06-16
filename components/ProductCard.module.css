@@ -1,18 +1,20 @@
 .card {
   background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-accent);
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--accent-violet-bright);
   box-shadow: var(--shadow-glow);
 }
 
@@ -179,45 +181,52 @@
 
 .actionBtn {
   flex: 1;
-  padding: 9px 12px;
+  padding: 10px 14px;
   border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.actionBtn:active {
+  transform: scale(0.96);
 }
 
 .buyBtn {
   background: var(--gradient-accent);
   color: white;
-  box-shadow: 0 3px 12px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
 .buyBtn:hover:not(:disabled) {
-  box-shadow: 0 5px 20px rgba(124, 58, 237, 0.55);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+  transform: translateY(-1.5px);
 }
 
 .buyBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  transform: none;
+  transform: none !important;
 }
 
 .compareBtn {
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(139, 92, 246, 0.08);
   color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(139, 92, 246, 0.15);
 }
 
 .compareBtn:hover {
-  background: rgba(124, 58, 237, 0.2);
+  background: rgba(139, 92, 246, 0.18);
   color: var(--text-primary);
+  border-color: rgba(139, 92, 246, 0.35);
 }
 
 .compared {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: var(--accent-green-bright) !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
 }
 
 .kaprukLink {

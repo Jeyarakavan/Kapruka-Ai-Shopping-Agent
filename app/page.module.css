@@ -82,15 +82,27 @@
   gap: 16px;
 }
 
-/* ─── Hero ─── */
-.hero {
+/* ─── Hero Section ─── */
+.heroSection {
+  padding: 100px 48px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.heroContainer {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.heroLeft {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 100px 24px 80px;
-  max-width: 900px;
-  margin: 0 auto;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .heroBadge {
@@ -98,22 +110,22 @@
   align-items: center;
   gap: 8px;
   padding: 8px 20px;
-  background: rgba(124, 58, 237, 0.12);
-  border: 1px solid rgba(124, 58, 237, 0.25);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
   border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-accent);
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   letter-spacing: 0.02em;
 }
 
 .heroTitle {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(48px, 7vw, 88px);
+  font-size: clamp(38px, 5.5vw, 68px);
   font-weight: 900;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.1;
   color: var(--text-primary);
   margin-bottom: 24px;
   position: relative;
@@ -128,11 +140,273 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(15px, 1.8vw, 18px);
   color: var(--text-secondary);
-  max-width: 600px;
-  margin-bottom: 40px;
-  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+/* ─── Live Chat Mockup Simulator ─── */
+.heroRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.chatMockup {
+  width: 100%;
+  max-width: 440px;
+  height: 480px;
+  background: rgba(17, 20, 34, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.mockupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: rgba(10, 12, 20, 0.5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.mockupHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mockupAvatar {
+  font-size: 24px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.mockupTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.mockupStatus {
+  font-size: 11px;
+  color: var(--accent-green-bright);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mockupStatusDot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+}
+
+.mockupBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-accent);
+  background: rgba(139, 92, 246, 0.15);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.mockupBody {
+  flex: 1;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.mockupBody::-webkit-scrollbar {
+  display: none;
+}
+
+.mockMsgRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.userMsgRow {
+  justify-content: flex-end;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.botMsgRow {
+  justify-content: flex-start;
+}
+
+.mockBubble {
+  background: var(--gradient-accent);
+  color: white;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border-bottom-right-radius: 4px;
+  font-size: 13.5px;
+  max-width: 80%;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.botIcon {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.mockBotBubble {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border-bottom-left-radius: 4px;
+  font-size: 13.5px;
+  max-width: 80%;
+  line-height: 1.5;
+  box-shadow: var(--shadow-card);
+}
+
+.mockProductsRow {
+  display: flex;
+  gap: 10px;
+  margin-left: 28px;
+  width: calc(100% - 28px);
+}
+
+.mockProductCard {
+  flex: 1;
+  background: rgba(20, 25, 45, 0.8);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockProductImgWrap {
+  position: relative;
+  padding-top: 60%;
+  background: rgba(10, 12, 20, 0.5);
+  overflow: hidden;
+}
+
+.mockProductImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mockProductTag {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: rgba(10, 12, 20, 0.8);
+  color: var(--text-primary);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.mockProductInfo {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.mockProductTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mockProductPrice {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-gold-light);
+}
+
+.mockProductActions {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.mockBuyBtn, .mockDetailBtn {
+  flex: 1;
+  padding: 4px 0;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+  opacity: 0.8;
+}
+
+.mockBuyBtn {
+  background: var(--gradient-accent);
+  color: white;
+}
+
+.mockDetailBtn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.mockupFooter {
+  padding: 12px 18px;
+  background: rgba(10, 12, 20, 0.4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.mockInput {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.mockSendIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.3);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.animateFadeIn {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ─── Prompt Showcase ─── */
@@ -446,18 +720,43 @@
 }
 
 /* ─── Responsive ─── */
+@media (max-width: 968px) {
+  .heroContainer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .heroLeft {
+    align-items: center;
+    text-align: center;
+  }
+  .heroSubtitle {
+    margin: 0 auto 24px;
+  }
+  .heroStats {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 16px 20px;
   }
 
-  .hero {
+  .heroSection {
     padding: 60px 20px 60px;
   }
 
   .heroActions {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .heroActions a, .heroActions button {
+    width: 100%;
+    justify-content: center;
   }
 
   .heroStats {

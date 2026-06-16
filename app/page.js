@@ -74,17 +74,107 @@ const QUICK_PROMPTS = [
   "Best flowers for a romantic occasion",
 ];
 
+const MOCK_CHAT_STEPS = [
+  {
+    user: "Anniversary gifts under LKR 6000 for Colombo",
+    bot: "I've searched Kapruka's catalog. Here are some lovely anniversary options that can be delivered to Colombo today:",
+    products: [
+      {
+        id: "demo-p1",
+        title: "Eternal Romance Bouquet",
+        price: 4800,
+        img: "https://www.kapruka.com/shops/specialGifts/productImages/1740567890123_0001.jpg",
+        tag: "🌹 Flowers",
+      },
+      {
+        id: "demo-p2",
+        title: "Kapruka Rich Chocolate Gateau",
+        price: 5500,
+        img: "https://www.kapruka.com/shops/specialGifts/productImages/1739784521450_0001.jpg",
+        tag: "🎂 Fresh Cakes",
+      }
+    ]
+  },
+  {
+    user: "Show trending tech items",
+    bot: "Here are some of the most popular tech and electronic accessories currently available:",
+    products: [
+      {
+        id: "demo-p3",
+        title: "Premium Wireless Earbuds",
+        price: 12500,
+        img: "https://www.kapruka.com/shops/specialGifts/productImages/1739784521450_0002.jpg",
+        tag: "📱 Tech",
+      },
+      {
+        id: "demo-p4",
+        title: "Smart fitness tracker band",
+        price: 8900,
+        img: "https://www.kapruka.com/shops/specialGifts/productImages/1756106966470_0001.jpg",
+        tag: "⌚ Wearables",
+      }
+    ]
+  }
+];
+
 export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
   const [activePrompt, setActivePrompt] = useState(0);
+  const [demoIndex, setDemoIndex] = useState(0);
+  const [demoStep, setDemoStep] = useState(0); // 0: idle/user typing, 1: bot typing, 2: bot response loaded
 
   useEffect(() => {
     setMounted(true);
     const interval = setInterval(() => {
       setActivePrompt((p) => (p + 1) % QUICK_PROMPTS.length);
-    }, 2500);
+    }, 2800);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    let subTimer;
+    
+    // Cycle the demo animations
+    const mainInterval = setInterval(() => {
+      // Step 0: User types query (shows user bubble)
+      setDemoStep(0);
+      
+      // Step 1: After 2 seconds, show Bot typing indicator
+      subTimer = setTimeout(() => {
+        setDemoStep(1);
+        
+        // Step 2: After 1.5 seconds, show Bot response & products
+        subTimer = setTimeout(() => {
+          setDemoStep(2);
+          
+          // Step 3: Stay on step 2 for 4.5 seconds, then move to next demo topic
+          subTimer = setTimeout(() => {
+            setDemoIndex((prev) => (prev + 1) % MOCK_CHAT_STEPS.length);
+            setDemoStep(0);
+          }, 4500);
+        }, 1500);
+      }, 2000);
+
+    }, 10000); // Complete cycle is 10 seconds
+
+    // Initial trigger
+    setDemoStep(0);
+    subTimer = setTimeout(() => {
+      setDemoStep(1);
+      subTimer = setTimeout(() => {
+        setDemoStep(2);
+      }, 1500);
+    }, 2000);
+
+    return () => {
+      clearInterval(mainInterval);
+      clearTimeout(subTimer);
+    };
+  }, [mounted]);
+
+  const activeDemo = MOCK_CHAT_STEPS[demoIndex];
 
   return (
     <main className={styles.main}>
@@ -111,53 +201,132 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <section className={styles.hero}>
-        <div className={`${styles.heroBadge} animate-bounce-in`}>
-          <span>🤖</span> Powered by Groq AI + Kapruka MCP
-        </div>
-
-        <h1 className={`${styles.heroTitle} ${mounted ? 'animate-fade-in' : ''}`}>
-          Your AI Shopping<br />
-          <span className="gradient-text">Genie</span> for Sri Lanka
-          <span className={styles.genieStar}>✨</span>
-        </h1>
-
-        <p className={`${styles.heroSubtitle} ${mounted ? 'animate-fade-in' : ''}`}>
-          Shop smarter across Kapruka's 125,000+ products. Get personalized gift
-          recommendations, instant delivery checks, and seamless checkout — all through
-          natural conversation.
-        </p>
-
-        {/* Animated prompt showcase */}
-        <div className={styles.promptShowcase}>
-          <span className={styles.promptIcon}>💬</span>
-          <span className={styles.promptText} key={activePrompt}>
-            {QUICK_PROMPTS[activePrompt]}
-          </span>
-        </div>
-
-        <div className={`${styles.heroActions} ${mounted ? 'animate-slide-up' : ''}`}>
-          <Link href="/chat" className="btn btn-primary btn-lg" id="hero-cta">
-            🧞 Talk to Genie
-          </Link>
-          <a href="#features" className="btn btn-ghost btn-lg">
-            See Features ↓
-          </a>
-        </div>
-
-        {/* Stats */}
-        <div className={styles.heroStats}>
-          {[
-            { value: '125K+', label: 'Products' },
-            { value: '5', label: 'AI Agents' },
-            { value: 'LKR', label: 'Currency' },
-            { value: '🇱🇰', label: 'Sri Lanka' },
-          ].map((stat) => (
-            <div key={stat.label} className={styles.stat}>
-              <div className={styles.statValue}>{stat.value}</div>
-              <div className={styles.statLabel}>{stat.label}</div>
+      <section className={styles.heroSection}>
+        <div className={styles.heroContainer}>
+          <div className={styles.heroLeft}>
+            <div className={`${styles.heroBadge} animate-bounce-in`}>
+              <span>🤖</span> Powered by Groq AI + Kapruka MCP
             </div>
-          ))}
+
+            <h1 className={`${styles.heroTitle} ${mounted ? 'animate-fade-in' : ''}`}>
+              Your AI Shopping<br />
+              <span className="gradient-text">Genie</span> for Sri Lanka
+              <span className={styles.genieStar}>✨</span>
+            </h1>
+
+            <p className={`${styles.heroSubtitle} ${mounted ? 'animate-fade-in' : ''}`}>
+              Shop smarter across Kapruka's 125,000+ products. Get personalized gift
+              recommendations, instant delivery checks, and seamless checkout — all through
+              natural conversation.
+            </p>
+
+            {/* Animated prompt suggestion helper */}
+            <div className={styles.promptShowcase}>
+              <span className={styles.promptIcon}>💬</span>
+              <span className={styles.promptText} key={activePrompt}>
+                {QUICK_PROMPTS[activePrompt]}
+              </span>
+            </div>
+
+            <div className={`${styles.heroActions} ${mounted ? 'animate-slide-up' : ''}`}>
+              <Link href="/chat" className="btn btn-primary btn-lg animate-glow" id="hero-cta">
+                🧞 Talk to Genie
+              </Link>
+              <a href="#features" className="btn btn-ghost btn-lg">
+                See Features ↓
+              </a>
+            </div>
+
+            {/* Stats */}
+            <div className={styles.heroStats}>
+              {[
+                { value: '125K+', label: 'Products' },
+                { value: '5', label: 'AI Agents' },
+                { value: 'LKR', label: 'Currency' },
+                { value: '🇱🇰', label: 'Sri Lanka' },
+              ].map((stat) => (
+                <div key={stat.label} className={styles.stat}>
+                  <div className={styles.statValue}>{stat.value}</div>
+                  <div className={styles.statLabel}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Hero Right: Interactive Chat Preview Mockup */}
+          <div className={styles.heroRight}>
+            <div className={`${styles.chatMockup} animate-scale-in`}>
+              {/* Header */}
+              <div className={styles.mockupHeader}>
+                <div className={styles.mockupHeaderLeft}>
+                  <span className={styles.mockupAvatar}>🧞</span>
+                  <div>
+                    <div className={styles.mockupTitle}>Kapruka Genie</div>
+                    <div className={styles.mockupStatus}>
+                      <span className={styles.mockupStatusDot} /> Live Preview
+                    </div>
+                  </div>
+                </div>
+                <span className={styles.mockupBadge}>AI ASSISTANT</span>
+              </div>
+
+              {/* Chat Body */}
+              <div className={styles.mockupBody}>
+                {/* User message */}
+                <div className={`${styles.mockMsgRow} ${styles.userMsgRow}`}>
+                  <div className={styles.mockBubble}>
+                    {activeDemo.user}
+                  </div>
+                </div>
+
+                {/* Bot typing state or Bot text response */}
+                {demoStep >= 1 && (
+                  <div className={`${styles.mockMsgRow} ${styles.botMsgRow} ${styles.animateFadeIn}`}>
+                    <span className={styles.botIcon}>🧞</span>
+                    <div className={styles.mockBotBubble}>
+                      {demoStep === 1 ? (
+                        <div className="typing-indicator">
+                          <span /><span /><span />
+                        </div>
+                      ) : (
+                        <span>{activeDemo.bot}</span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Bot products loaded */}
+                {demoStep === 2 && (
+                  <div className={`${styles.mockProductsRow} ${styles.animateSlideUp}`}>
+                    {activeDemo.products.map((p) => (
+                      <div key={p.id} className={styles.mockProductCard}>
+                        <div className={styles.mockProductImgWrap}>
+                          <img src={p.img} alt={p.title} className={styles.mockProductImg} />
+                          <span className={styles.mockProductTag}>{p.tag}</span>
+                        </div>
+                        <div className={styles.mockProductInfo}>
+                          <div className={styles.mockProductTitle}>{p.title}</div>
+                          <div className={styles.mockProductPrice}>LKR {p.price.toLocaleString('en-LK')}</div>
+                          <div className={styles.mockProductActions}>
+                            <button className={styles.mockBuyBtn} disabled>Buy</button>
+                            <button className={styles.mockDetailBtn} disabled>Details</button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Input simulator */}
+              <div className={styles.mockupFooter}>
+                <div className={styles.mockInput}>
+                  <span>Ask Genie anything...</span>
+                  <span className={styles.mockSendIcon}>↑</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -173,7 +342,7 @@ export default function LandingPage() {
               href="/chat"
               key={item.title}
               className={styles.showcaseCard}
-              style={{ animationDelay: `${i * 0.1}s` }}
+              style={{ animationDelay: `${i * 0.08}s` }}
             >
               <div className={styles.showcaseImgWrap}>
                 <img
@@ -212,7 +381,7 @@ export default function LandingPage() {
             <div
               key={f.title}
               className={styles.featureCard}
-              style={{ animationDelay: `${i * 0.1}s` }}
+              style={{ animationDelay: `${i * 0.08}s` }}
             >
               <div className={styles.featureIcon}>{f.icon}</div>
               <h3 className={styles.featureTitle}>{f.title}</h3>
