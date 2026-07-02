@@ -6,6 +6,11 @@ export const metadata = {
   description:
     "Sri Lanka's most intelligent shopping assistant. Find products, gifts, and more on Kapruka.com with AI-powered recommendations, instant delivery checks, and seamless checkout.",
   keywords: 'Kapruka, Sri Lanka shopping, AI assistant, gifts, online shopping, delivery',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
     title: 'Kapruka Genie — AI Shopping Assistant',
     description: 'Your AI-powered shopping genie for Sri Lanka',

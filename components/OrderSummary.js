@@ -18,12 +18,12 @@ export default function OrderSummary({ order, paymentUrl, onClose }) {
   return (
     <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className={styles.modal} id="order-summary-modal">
+        <button className={styles.closeBtn} onClick={onClose} id="close-order-modal">✕</button>
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.successIcon}>🎉</div>
           <h2 className={styles.title}>Order Confirmed!</h2>
           <p className={styles.subtitle}>Your order has been successfully created</p>
-          <button className={styles.closeBtn} onClick={onClose} id="close-order-modal">✕</button>
         </div>
 
         {/* Price Lock Warning */}

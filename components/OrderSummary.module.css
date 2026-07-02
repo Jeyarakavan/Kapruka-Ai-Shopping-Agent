@@ -56,8 +56,8 @@
 
 .closeBtn {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: 16px;
+  right: 16px;
   width: 32px;
   height: 32px;
   border-radius: 50%;

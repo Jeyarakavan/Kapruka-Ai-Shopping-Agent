@@ -19,6 +19,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: '**.kapruka.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
 };
