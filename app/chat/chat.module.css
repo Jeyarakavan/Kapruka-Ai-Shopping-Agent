@@ -68,6 +68,13 @@
   color: var(--text-primary);
 }
 
+.sidebarLogoImg {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
 .sidebarSection {
   padding: 20px 16px 8px;
   overflow-y: auto;
@@ -132,6 +139,22 @@
   color: var(--text-muted);
 }
 
+.agentItemIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.agentItemImg {
+  width: 18px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 /* ─── Sidebar Footer ─── */
 .sidebarFooter {
   margin-top: auto;
@@ -183,9 +206,20 @@
 }
 
 .genieAvatar {
-  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
   animation: float 3s ease-in-out infinite;
-  display: inline-block;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .genieTitle {
@@ -262,6 +296,13 @@
   align-items: center;
   gap: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.agentTagImg {
+  width: 13px;
+  height: 13px;
+  object-fit: cover;
+  border-radius: 3px;
 }
 
 /* ─── Bubbles ─── */
@@ -654,5 +695,28 @@
 
   .inputBar {
     padding: 12px 16px 16px;
+  }
+
+  .cartTray, .compareTray {
+    margin: 0 12px 8px;
+    padding: 10px 12px;
+  }
+
+  .compareItems {
+    gap: 8px;
+  }
+
+  .compareItem {
+    min-width: 120px;
+    padding: 6px 8px;
+  }
+
+  .compareImg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .compareName {
+    font-size: 11px;
   }
 }

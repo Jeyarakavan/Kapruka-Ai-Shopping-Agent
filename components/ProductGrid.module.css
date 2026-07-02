@@ -8,40 +8,80 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
+  padding: 0 2px;
 }
 
 .count {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .badge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 5px;
+  font-size: 11px;
   color: var(--text-accent);
   background: rgba(124, 58, 237, 0.1);
   border: 1px solid rgba(124, 58, 237, 0.2);
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
   font-weight: 600;
 }
 
+/* ─── Product Grid Layout ─── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* 2 products → side by side */
+.grid:has(.gridItem:nth-child(2)):not(:has(.gridItem:nth-child(3))) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 1 product → single centered */
+.grid:not(:has(.gridItem:nth-child(2))) {
+  grid-template-columns: minmax(0, 360px);
+  justify-content: start;
 }
 
 .gridItem {
   animation: fadeIn 0.4s ease backwards;
+  min-width: 0;
 }
 
-@media (max-width: 480px) {
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+
+  /* On small screens, 1 product → full width */
+  .grid:not(:has(.gridItem:nth-child(2))) {
+    grid-template-columns: 1fr;
+  }
+
+  /* 2 products → side by side even on small screens */
+  .grid:has(.gridItem:nth-child(2)):not(:has(.gridItem:nth-child(3))) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 }

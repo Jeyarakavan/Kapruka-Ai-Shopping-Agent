@@ -23,7 +23,7 @@ const AGENT_LABELS = {
   delivery: { icon: '🚚', label: 'Delivery Agent', color: '#06b6d4' },
   checkout: { icon: '💳', label: 'Checkout Agent', color: '#f59e0b' },
   tracking: { icon: '📦', label: 'Tracking Agent', color: '#10b981' },
-  general: { icon: '🧞', label: 'Kapruka Genie', color: '#8b5cf6' },
+  general: { icon: '/logo.png', label: 'Kapruka Genie', color: '#8b5cf6' },
 };
 
 const LANGUAGES = [
@@ -168,6 +168,8 @@ export default function ChatPage() {
                   ...(parsed.lastProducts ? { lastProducts: parsed.lastProducts } : {}),
                   ...(parsed.giftContext ? { giftContext: parsed.giftContext } : {}),
                   ...(parsed.cart ? { cart: parsed.cart } : {}),
+                  // Track if we're waiting for order confirmation
+                  awaitingConfirmation: parsed.awaitingConfirmation || false,
                   forceCheckout: false,
                   isConfirmation: false,
                 }));
@@ -268,7 +270,7 @@ export default function ChatPage() {
       <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
           <Link href="/" className={styles.sidebarLogo}>
-            <span>🧞</span>
+            <img src="/logo.png" alt="Kapruka Genie Logo" className={styles.sidebarLogoImg} />
             <span>
               <span className="gradient-text">Kapruka</span>{' '}
               <span className="gold-text">Genie</span>
@@ -338,7 +340,13 @@ export default function ChatPage() {
           <div className={styles.agentList}>
             {Object.entries(AGENT_LABELS).map(([key, ag]) => (
               <div key={key} className={styles.agentItem}>
-                <span>{ag.icon}</span>
+                <span className={styles.agentItemIconWrap}>
+                  {ag.icon.endsWith('.png') ? (
+                    <img src={ag.icon} alt="" className={styles.agentItemImg} />
+                  ) : (
+                    ag.icon
+                  )}
+                </span>
                 <span>{ag.label}</span>
               </div>
             ))}
@@ -363,7 +371,9 @@ export default function ChatPage() {
             >
               ☰
             </button>
-            <div className={styles.genieAvatar}>🧞</div>
+            <div className={styles.genieAvatar}>
+              <img src="/logo.png" alt="Genie Avatar" className={styles.avatarImg} />
+            </div>
             <div>
               <div className={styles.genieTitle}>Kapruka Genie</div>
               <div className={styles.genieStatus}>
@@ -388,7 +398,11 @@ export default function ChatPage() {
             >
               {msg.role === 'assistant' && (
                 <div className={styles.agentTag}>
-                  {AGENT_LABELS[msg.intent || 'general']?.icon}{' '}
+                  {AGENT_LABELS[msg.intent || 'general']?.icon?.endsWith('.png') ? (
+                    <img src={AGENT_LABELS[msg.intent || 'general']?.icon} alt="" className={styles.agentTagImg} />
+                  ) : (
+                    AGENT_LABELS[msg.intent || 'general']?.icon
+                  )}{' '}
                   {AGENT_LABELS[msg.intent || 'general']?.label}
                 </div>
               )}
